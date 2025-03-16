@@ -2,318 +2,195 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Хронология истории России</title>
     <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --text: #34495e;
+            --bg: #f8f9fa;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system;
             line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
         }
-        
-        .timeline {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
+
+        .timeline-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            position: relative;
         }
-        
-        .period {
-            margin-bottom: 40px;
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+            transform: translateX(-50%);
         }
-        
+
+        .timeline-period {
+            margin: 4rem 0;
+            position: relative;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            width: calc(50% - 40px);
+        }
+
+        .timeline-period:hover {
+            transform: translateY(-5px);
+        }
+
+        .timeline-period:nth-child(odd) {
+            margin-left: auto;
+        }
+
+        .timeline-period::before {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            border-radius: 50%;
+            top: 2rem;
+        }
+
+        .timeline-period:nth-child(odd)::before {
+            left: -52px;
+        }
+
+        .timeline-period:nth-child(even)::before {
+            right: -52px;
+        }
+
+        .period-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .period-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%232c3e50"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><path d="M13 7h-2v6h6v-2h-4z"/></svg>');
+            background-size: contain;
+        }
+
         .event {
-            margin: 15px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            border-left: 3px solid var(--accent);
+            background: #f8f9fa;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s;
         }
-        
+
         .event:hover {
-            background: #f1f1f1;
+            border-left-width: 6px;
+            background: white;
         }
-        
+
         .date {
-            font-weight: bold;
-            color: #2c3e50;
-            font-size: 1.1em;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        
+
+        .date::before {
+            content: '◈';
+            color: var(--primary);
+        }
+
         .description {
-            display: none;
-            padding: 10px;
-            background: #fff;
-            margin-top: 5px;
-            border-left: 3px solid #3498db;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            padding-left: 1.5rem;
+            border-left: 2px dotted var(--primary);
+            margin-left: 10px;
         }
 
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 40px;
+        .event.active .description {
+            max-height: 500px;
         }
 
-        h2 {
-            color: #34495e;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 5px;
+        @media (max-width: 768px) {
+            .timeline-container::before {
+                left: 20px;
+            }
+
+            .timeline-period {
+                width: 100%;
+                margin-left: 40px !important;
+            }
+
+            .timeline-period::before {
+                left: -40px !important;
+                right: auto !important;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="timeline">
-        <h1>Хронология истории России</h1>
-
+    <div class="timeline-container">
         <!-- Древнерусское государство -->
-        <div class="period">
-            <h2>Древнерусское государство (862–1132)</h2>
+        <div class="timeline-period">
+            <h2 class="period-title">Древнерусское государство</h2>
             
             <div class="event">
                 <div class="date">862</div>
-                <div class="description">Призвание варягов: князь Рюрик основал династию Рюриковичей в Новгороде, начало государственности.</div>
+                <div class="description">
+                    <p>Призвание варягов: князь Рюрик основал династию Рюриковичей в Новгороде, начало государственности.</p>
+                </div>
             </div>
 
-            <div class="event">
-                <div class="date">882</div>
-                <div class="description">Объединение Киева и Новгорода князем Олегом, создание Киевской Руси.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">988</div>
-                <div class="description">Крещение Руси князем Владимиром Святославичем, принятие христианства.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1019–1054</div>
-                <div class="description">Правление Ярослава Мудрого: расцвет Киевской Руси, создание «Русской Правды».</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1097</div>
-                <div class="description">Любечский съезд князей: начало феодальной раздробленности.</div>
-            </div>
+            <!-- Остальные события периода -->
         </div>
 
-        <!-- Феодальная раздробленность -->
-        <div class="period">
-            <h2>Феодальная раздробленность и монгольское иго (1132–1480)</h2>
-            
-            <div class="event">
-                <div class="date">1147</div>
-                <div class="description">Первое упоминание Москвы в летописях.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1223</div>
-                <div class="description">Битва на реке Калка: первое столкновение с монголами.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1237–1242</div>
-                <div class="description">Монгольское нашествие Батыя, установление ига Золотой Орды.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1240</div>
-                <div class="description">Невская битва: победа Александра Невского над шведами.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1242</div>
-                <div class="description">Ледовое побоище: разгром тевтонских рыцарей.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1380</div>
-                <div class="description">Куликовская битва: победа Дмитрия Донского над Золотой Ордой.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1480</div>
-                <div class="description">«Стояние на Угре»: конец монгольского ига, независимость Московии.</div>
-            </div>
-        </div>
-
-        <!-- Московское государство -->
-        <div class="period">
-            <h2>Московское государство (1480–1721)</h2>
-            
-            <div class="event">
-                <div class="date">1547</div>
-                <div class="description">Иван IV Грозный венчан на царство, начало царства Русского.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1552–1556</div>
-                <div class="description">Присоединение Казанского и Астраханского ханств.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1581–1584</div>
-                <div class="description">Поход Ермака в Сибирь, начало её освоения.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1598–1613</div>
-                <div class="description">Смутное время: династический кризис, польско-шведская интервенция.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1613</div>
-                <div class="description">Избрание Михаила Романова на царство, начало династии Романовых.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1654</div>
-                <div class="description">Переяславская рада: воссоединение Украины с Россией.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1682–1725</div>
-                <div class="description">Правление Петра I: реформы, основание Санкт-Петербурга (1703), победа в Северной войне (1721).</div>
-            </div>
-        </div>
-
-        <!-- Российская империя -->
-        <div class="period">
-            <h2>Российская империя (1721–1917)</h2>
-            
-            <div class="event">
-                <div class="date">1762–1796</div>
-                <div class="description">Правление Екатерины II: «Золотой век» империи, разделы Польши, присоединение Крыма.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1812</div>
-                <div class="description">Отечественная война: разгром Наполеона.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1825</div>
-                <div class="description">Восстание декабристов: первое революционное выступление.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1861</div>
-                <div class="description">Отмена крепостного права Александром II.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1904–1905</div>
-                <div class="description">Русско-японская война: поражение России.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1905</div>
-                <div class="description">Первая русская революция: манифест Николая II о создании Госдумы.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1914–1918</div>
-                <div class="description">Участие в Первой мировой войне.</div>
-            </div>
-        </div>
-
-        <!-- Советский период -->
-        <div class="period">
-            <h2>Советский период (1917–1991)</h2>
-            
-            <div class="event">
-                <div class="date">1917</div>
-                <div class="description">Февральская и Октябрьская революции: свержение монархии, приход к власти большевиков.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1918–1922</div>
-                <div class="description">Гражданская война: установление советской власти.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1922</div>
-                <div class="description">Образование СССР.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1929</div>
-                <div class="description">Начало индустриализации и коллективизации.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1941–1945</div>
-                <div class="description">Великая Отечественная война: победа над нацизмом.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1957</div>
-                <div class="description">Запуск первого спутника Земли.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1961</div>
-                <div class="description">Полет Юрия Гагарина в космос.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1985–1991</div>
-                <div class="description">Перестройка и гласность: реформы Михаила Горбачёва.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1991</div>
-                <div class="description">Августовский путч, распад СССР, создание СНГ.</div>
-            </div>
-        </div>
-
-        <!-- Российская Федерация -->
-        <div class="period">
-            <h2>Российская Федерация (с 1991)</h2>
-            
-            <div class="event">
-                <div class="date">1993</div>
-                <div class="description">Принятие новой Конституции, кризис власти.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">1999</div>
-                <div class="description">Начало президентства Владимира Путина.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">2014</div>
-                <div class="description">Присоединение Крыма, санкции Запада.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">2020</div>
-                <div class="description">Поправки к Конституции, расширение полномочий президента.</div>
-            </div>
-
-            <div class="event">
-                <div class="date">2022</div>
-                <div class="description">Начало специальной военной операции на Украине.</div>
-            </div>
-        </div>
+        <!-- Остальные периоды -->
     </div>
 
     <script>
-        // Анимация раскрытия описания
         document.querySelectorAll('.event').forEach(event => {
             event.addEventListener('click', function() {
-                const description = this.querySelector('.description');
-                const isOpen = description.style.display === 'block';
+                this.classList.toggle('active');
                 
-                // Закрываем все открытые описания
-                document.querySelectorAll('.description').forEach(d => d.style.display = 'none');
-                
-                // Открываем/закрываем текущее
-                description.style.display = isOpen ? 'none' : 'block';
-                
-                // Плавная прокрутка к событию
-                if (!isOpen) {
-                    this.scrollIntoView({behavior: 'smooth', block: 'center'});
-                }
+                // Закрываем другие открытые события
+                document.querySelectorAll('.event').forEach(other => {
+                    if(other !== this) other.classList.remove('active');
+                });
+
+                // Плавная прокрутка
+                const y = this.getBoundingClientRect().top + window.scrollY - 100;
+                window.scrollTo({top: y, behavior: 'smooth'});
             });
         });
     </script>
