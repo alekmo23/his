@@ -1,0 +1,201 @@
+/* Общие стили */
+body {
+    font-family: 'Georgia', serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f1e8;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1, h2, h3 {
+    font-family: 'Palatino', serif;
+    color: #8b0000;
+}
+
+a {
+    color: #8b0000;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #8b0000;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #6b0000;
+}
+
+/* Шапка */
+header {
+    background-color: #8b0000;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+header p {
+    margin: 5px 0 0;
+    font-size: 1.2em;
+}
+
+/* Навигация */
+nav {
+    background-color: #333;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    font-size: 1.1em;
+}
+
+/* Основные секции */
+section {
+    padding: 40px 0;
+}
+
+#intro {
+    background-color: #fff;
+    text-align: center;
+}
+
+#intro h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+#intro p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+#latest-posts {
+    background-color: #f4f1e8;
+}
+
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.post {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post h3 {
+    margin-top: 0;
+}
+
+#subscribe {
+    background-color: #8b0000;
+    color: #fff;
+    text-align: center;
+}
+
+#subscribe h2 {
+    margin-bottom: 20px;
+}
+
+#subscribe input[type="email"] {
+    padding: 10px;
+    width: 300px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+/* Дополнения к стилям */
+.timeline-section {
+    padding: 50px 0;
+    background: #f9f9f9;
+}
+
+.timeline-item {
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 15px;
+    border-left: 3px solid #2c3e50;
+    position: relative;
+}
+
+.timeline-date {
+    font-weight: bold;
+    color: #3498db;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.timeline-date:hover {
+    color: #2980b9;
+}
+
+.timeline-content {
+    display: none;
+    padding: 10px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-top: 10px;
+}
+
+.active .timeline-content {
+    display: block;
+}
+/* Подвал */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+    display: flex;
+    justify-content: center;
+}
+
+footer ul li {
+    margin: 0 15px;
+}
+
+footer ul li a {
+    color: #fff;
+}
