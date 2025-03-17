@@ -3,31 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Путешествие по истории России</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>История России: Хронология и Викторина</title>
     <style>
-        /* Обновленные стили для горизонтальной временной шкалы */
+        /* Общие стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background: #f5f7fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Шапка */
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        /* Навигация */
+        nav {
+            background: #34495e;
+            padding: 15px 0;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            list-style: none;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #3498db;
+        }
+
+        /* Горизонтальная временная шкала */
         .timeline-section {
             padding: 50px 0;
-            background: #f9f9f9;
-            overflow-x: auto;
+            background: #fff;
         }
 
         .timeline-container {
             display: flex;
-            gap: 30px;
+            gap: 25px;
             padding: 30px 20px;
-            min-width: fit-content;
+            overflow-x: auto;
         }
 
         .timeline-item {
-            flex: 0 0 280px;
+            flex: 0 0 300px;
             background: #fff;
-            border-radius: 12px;
+            border-radius: 10px;
             padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s;
             position: relative;
         }
 
@@ -36,14 +90,10 @@
         }
 
         .timeline-date {
-            font-size: 1.2em;
-            color: #2c3e50;
-            font-weight: 700;
+            font-size: 1.3em;
+            color: #3498db;
             margin-bottom: 15px;
-            padding: 10px 20px;
-            background: #e8f4ff;
-            border-radius: 25px;
-            display: inline-block;
+            font-weight: bold;
         }
 
         .timeline-content {
@@ -54,66 +104,201 @@
             right: 0;
             background: #fff;
             padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
             z-index: 100;
-        }
-
-        .timeline-item.active {
-            background: #f5faff;
         }
 
         .timeline-item.active .timeline-content {
             display: block;
-            animation: cardSlide 0.4s ease-out;
+            animation: fadeIn 0.4s;
         }
 
-        @keyframes cardSlide {
+        @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Стили для викторины остаются без изменений */
+        /* Секция викторины */
         .quiz-section {
-            padding: 50px 0;
-            background: #fff;
-            border-top: 3px solid #2c3e50;
+            padding: 60px 0;
+            background: #f9f9f9;
         }
 
-        /* ... остальные стили викторины ... */
+        #quizContainer {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+
+        .question {
+            font-size: 1.4em;
+            color: #2c3e50;
+            margin-bottom: 25px;
+        }
+
+        .option {
+            display: block;
+            width: 100%;
+            padding: 15px 25px;
+            margin: 10px 0;
+            background: #fff;
+            border: 2px solid #3498db;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1em;
+        }
+
+        .option:hover {
+            background: #3498db;
+            color: white;
+            transform: translateX(10px);
+        }
+
+        .option.correct {
+            background: #2ecc71 !important;
+            border-color: #27ae60;
+        }
+
+        .option.wrong {
+            background: #e74c3c !important;
+            border-color: #c0392b;
+        }
+
+        #progress {
+            margin: 20px 0;
+            font-weight: bold;
+            color: #3498db;
+            text-align: center;
+        }
+
+        .result-box {
+            padding: 25px;
+            margin-top: 30px;
+            border-radius: 15px;
+            text-align: center;
+            background: #f8f9fa;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 35px;
+            background: #3498db;
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .timeline-item {
+                flex: 0 0 250px;
+            }
+
+            .question {
+                font-size: 1.2em;
+            }
+
+            .option {
+                font-size: 1em;
+                padding: 12px 20px;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Остальные секции без изменений -->
+    <header>
+        <div class="container">
+            <h1>История России</h1>
+            <p>Интерактивная хронология и викторина</p>
+        </div>
+    </header>
 
-    <!-- Обновленная секция с горизонтальными событиями -->
-    <section class="timeline-section">
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#timeline">Хронология</a></li>
+                <li><a href="#quiz">Викторина</a></li>
+                <li><a href="#about">О проекте</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="timeline" class="timeline-section">
         <div class="container">
             <h2>Ключевые события</h2>
             <div class="timeline-container">
                 <div class="timeline-item">
-                    <div class="timeline-date">862 год</div>
+                    <div class="timeline-date">862 г.</div>
                     <div class="timeline-content">
                         <h3>Основание Руси</h3>
-                        <p>Призвание варягов: князь Рюрик основал династию Рюриковичей в Новгороде.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-date">988 год</div>
-                    <div class="timeline-content">
-                        <h3>Крещение Руси</h3>
-                        <p>Князь Владимир Святославич принимает христианство как государственную религию.</p>
+                        <p>Призвание варягов во главе с Рюриком, начало династии Рюриковичей</p>
                     </div>
                 </div>
 
-                <!-- Добавьте дополнительные события по аналогии -->
+                <div class="timeline-item">
+                    <div class="timeline-date">988 г.</div>
+                    <div class="timeline-content">
+                        <h3>Крещение Руси</h3>
+                        <p>Князь Владимир принимает христианство как государственную религию</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">1380 г.</div>
+                    <div class="timeline-content">
+                        <h3>Куликовская битва</h3>
+                        <p>Победа Дмитрия Донского над войсками Золотой Орды</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">1547 г.</div>
+                    <div class="timeline-content">
+                        <h3>Венчание на царство</h3>
+                        <p>Иван IV Грозный становится первым русским царем</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">1721 г.</div>
+                    <div class="timeline-content">
+                        <h3>Рождение империи</h3>
+                        <p>Петр I провозглашает Российскую империю</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz" class="quiz-section">
+        <div class="container">
+            <h2>Историческая викторина</h2>
+            <button id="startQuiz" class="btn">Начать викторину</button>
+            
+            <div id="quizContainer" style="display: none;">
+                <div id="questionBox"></div>
+                <div id="optionsBox"></div>
+                <div id="progress"></div>
+                <div id="result" class="result-box"></div>
             </div>
         </div>
     </section>
 
     <script>
-        // Обновленный скрипт для горизонтальной шкалы
+        // Скрипт для временной шкалы
         document.querySelectorAll('.timeline-item').forEach(item => {
             item.addEventListener('click', function(e) {
                 e.stopPropagation();
@@ -124,7 +309,6 @@
 
                 this.classList.add('active');
 
-                // Плавная прокрутка к элементу
                 const container = this.parentElement;
                 const scrollPos = this.offsetLeft - (container.offsetWidth / 2 - this.offsetWidth / 2);
                 
@@ -135,7 +319,6 @@
             });
         });
 
-        // Закрытие по клику вне элемента
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.timeline-item')) {
                 document.querySelectorAll('.timeline-item').forEach(el => {
@@ -144,9 +327,106 @@
             }
         });
 
-        // Скрипт викторины остается без изменений
-        const quizData = [/* ... */];
-        // ... остальной код викторины ...
+        // Скрипт для викторины
+        const quizData = [
+            {
+                question: "Какому событию соответствует 862 год?",
+                options: ["Крещение Руси", "Призвание варягов", "Ледовое побоище"],
+                correct: 1
+            },
+            {
+                question: "Что произошло в 988 году?",
+                options: ["Основание Москвы", "Принятие христианства", "Нашествие монголов"],
+                correct: 1
+            },
+            {
+                question: "Какое событие связано с 1380 годом?",
+                options: ["Бородинское сражение", "Куликовская битва", "Взятие Казани"],
+                correct: 1
+            },
+            {
+                question: "Что произошло в 1861 году?",
+                options: ["Отмена крепостного права", "Начало Первой мировой", "Реформы Петра I"],
+                correct: 0
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        document.getElementById('startQuiz').addEventListener('click', () => {
+            document.getElementById('quizContainer').style.display = 'block';
+            document.getElementById('startQuiz').style.display = 'none';
+            currentQuestion = 0;
+            score = 0;
+            showQuestion();
+        });
+
+        function showQuestion() {
+            const question = quizData[currentQuestion];
+            document.getElementById('questionBox').innerHTML = `
+                <div class="question">${question.question}</div>
+            `;
+
+            let optionsHtml = '';
+            question.options.forEach((option, index) => {
+                optionsHtml += `
+                    <button class="option" onclick="checkAnswer(${index})">${option}</button>
+                `;
+            });
+
+            document.getElementById('optionsBox').innerHTML = optionsHtml;
+            updateProgress();
+        }
+
+        function checkAnswer(selected) {
+            const options = document.querySelectorAll('.option');
+            const correct = quizData[currentQuestion].correct;
+
+            options.forEach((option, index) => {
+                option.disabled = true;
+                if(index === correct) {
+                    option.classList.add('correct');
+                } else if(index === selected) {
+                    option.classList.add('wrong');
+                }
+            });
+
+            if(selected === correct) score++;
+
+            setTimeout(() => {
+                currentQuestion++;
+                if(currentQuestion < quizData.length) {
+                    showQuestion();
+                } else {
+                    showResult();
+                }
+            }, 1500);
+        }
+
+        function updateProgress() {
+            document.getElementById('progress').textContent = 
+                `Вопрос ${currentQuestion + 1} из ${quizData.length}`;
+        }
+
+        function showResult() {
+            const resultHtml = `
+                <div class="result-box">
+                    <h3>Ваш результат: ${score} из ${quizData.length}</h3>
+                    <p>${getResultComment()}</p>
+                    <button onclick="location.reload()" class="btn">Пройти снова</button>
+                </div>
+            `;
+            document.getElementById('result').innerHTML = resultHtml;
+        }
+
+        function getResultComment() {
+            const percent = (score / quizData.length) * 100;
+            if(percent === 100) return "Идеально! Вы настоящий историк!";
+            if(percent >= 75) return "Отличный результат!";
+            if(percent >= 50) return "Неплохо, но можно лучше!";
+            return "Попробуйте еще раз!";
+        }
     </script>
 </body>
 </html>
