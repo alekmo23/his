@@ -112,5 +112,222 @@
             });
         });
     </script>
+    <!-- Секция викторины -->
+<section id="quizzes" class="quiz-section">
+    <div class="container">
+        <h2>Историческая викторина</h2>
+        <button id="startQuiz" class="btn">Начать викторину</button>
+        
+        <div id="quizContainer" style="display: none;">
+            <div id="questionBox"></div>
+            <div id="optionsBox"></div>
+            <div id="progress"></div>
+            <div id="result" class="result-box"></div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Стили для викторины */
+    .quiz-section {
+        padding: 50px 0;
+        background: #fff;
+        border-top: 3px solid #2c3e50;
+    }
+
+    #quizContainer {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #f9f9f9;
+        border-radius: 10px;
+    }
+
+    .question {
+        font-size: 1.4em;
+        color: #2c3e50;
+        margin-bottom: 20px;
+    }
+
+    .option {
+        display: block;
+        width: 100%;
+        padding: 15px;
+        margin: 10px 0;
+        background: #fff;
+        border: 2px solid #3498db;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: left;
+        font-size: 1.1em;
+    }
+
+    .option:hover {
+        background: #3498db;
+        color: white;
+        transform: translateX(10px);
+    }
+
+    .option.correct {
+        background: #2ecc71 !important;
+        border-color: #27ae60;
+    }
+
+    .option.wrong {
+        background: #e74c3c !important;
+        border-color: #c0392b;
+    }
+
+    .result-box {
+        padding: 20px;
+        margin-top: 30px;
+        border-radius: 10px;
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    #progress {
+        margin: 20px 0;
+        font-weight: bold;
+        color: #3498db;
+    }
+
+    #startQuiz {
+        display: block;
+        margin: 0 auto 30px;
+        padding: 15px 40px;
+        font-size: 1.2em;
+    }
+</style>
+
+<script>
+    const quizData = [
+        {
+            question: "Какому событию соответствует 862 год?",
+            options: [
+                "Крещение Руси",
+                "Призвание варягов",
+                "Ледовое побоище",
+                "Куликовская битва"
+            ],
+            correct: 1
+        },
+        {
+            question: "Что произошло в 988 году?",
+            options: [
+                "Основание Москвы",
+                "Принятие христианства",
+                "Нашествие монголов",
+                "Восстание декабристов"
+            ],
+            correct: 1
+        },
+        {
+            question: "Какое событие связано с 1380 годом?",
+            options: [
+                "Бородинское сражение",
+                "Куликовская битва",
+                "Полтавская битва",
+                "Взятие Казани"
+            ],
+            correct: 1
+        },
+        {
+            question: "Что произошло в 1861 году?",
+            options: [
+                "Отмена крепостного права",
+                "Начало Первой мировой войны",
+                "Восстание Пугачёва",
+                "Реформы Петра I"
+            ],
+            correct: 0
+        },
+        {
+            question: "Событие 1961 года:",
+            options: [
+                "Запуск первого спутника",
+                "Полет Гагарина в космос",
+                "Распад СССР",
+                "Сталинградская битва"
+            ],
+            correct: 1
+        }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    document.getElementById('startQuiz').addEventListener('click', () => {
+        document.getElementById('quizContainer').style.display = 'block';
+        document.getElementById('startQuiz').style.display = 'none';
+        showQuestion();
+    });
+
+    function showQuestion() {
+        const question = quizData[currentQuestion];
+        document.getElementById('questionBox').innerHTML = `
+            <div class="question">${question.question}</div>
+        `;
+
+        let optionsHtml = '';
+        question.options.forEach((option, index) => {
+            optionsHtml += `
+                <button class="option" onclick="checkAnswer(${index})">${option}</button>
+            `;
+        });
+
+        document.getElementById('optionsBox').innerHTML = optionsHtml;
+        updateProgress();
+    }
+
+    function checkAnswer(selected) {
+        const options = document.querySelectorAll('.option');
+        const correct = quizData[currentQuestion].correct;
+
+        options.forEach((option, index) => {
+            option.disabled = true;
+            if(index === correct) {
+                option.classList.add('correct');
+            } else if(index === selected && index !== correct) {
+                option.classList.add('wrong');
+            }
+        });
+
+        if(selected === correct) score++;
+
+        setTimeout(() => {
+            currentQuestion++;
+            if(currentQuestion < quizData.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }, 1500);
+    }
+
+    function updateProgress() {
+        document.getElementById('progress').textContent = 
+            `Вопрос ${currentQuestion + 1} из ${quizData.length}`;
+    }
+
+    function showResult() {
+        document.getElementById('quizContainer').innerHTML = `
+            <div class="result-box">
+                <h3>Ваш результат: ${score} из ${quizData.length}</h3>
+                <p>${getResultComment()}</p>
+                <button onclick="location.reload()" class="btn">Пройти снова</button>
+            </div>
+        `;
+    }
+
+    function getResultComment() {
+        const percentage = (score / quizData.length) * 100;
+        if(percentage === 100) return "Идеальный результат! Вы настоящий знаток истории!";
+        if(percentage >= 80) return "Отличный результат! Хорошие знания!";
+        if(percentage >= 60) return "Неплохо, но есть куда стремиться!";
+        return "Попробуйте еще раз и освежите свои знания!";
+    }
+</script>
 </body>
 </html>
