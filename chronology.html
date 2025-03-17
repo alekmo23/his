@@ -5,175 +5,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Хронология истории России</title>
     <style>
-        :root {
-            --primary: #2c3e50;
-            --accent: #3498db;
-            --text: #34495e;
-            --bg: #f8f9fa;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system;
+            font-family: Arial, sans-serif;
             line-height: 1.6;
-            color: var(--text);
-            background: var(--bg);
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
         }
-
-        .timeline-container {
-            max-width: 1200px;
+        
+        .timeline {
+            max-width: 800px;
             margin: 0 auto;
-            padding: 4rem 2rem;
-            position: relative;
+            padding: 20px;
         }
-
-        .timeline-container::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            width: 4px;
-            height: 100%;
-            background: var(--accent);
-            transform: translateX(-50%);
+        
+        .period {
+            margin-bottom: 40px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
-        .timeline-period {
-            margin: 4rem 0;
-            position: relative;
-            padding: 2rem;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-            width: calc(50% - 40px);
-        }
-
-        .timeline-period:hover {
-            transform: translateY(-5px);
-        }
-
-        .timeline-period:nth-child(odd) {
-            margin-left: auto;
-        }
-
-        .timeline-period::before {
-            content: '';
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            background: var(--accent);
-            border-radius: 50%;
-            top: 2rem;
-        }
-
-        .timeline-period:nth-child(odd)::before {
-            left: -52px;
-        }
-
-        .timeline-period:nth-child(even)::before {
-            right: -52px;
-        }
-
-        .period-title {
-            font-size: 1.8rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-left: 40px;
-        }
-
-        .period-title::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 30px;
-            height: 30px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%232c3e50"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><path d="M13 7h-2v6h6v-2h-4z"/></svg>');
-            background-size: contain;
-        }
-
+        
         .event {
-            margin: 1.5rem 0;
-            padding: 1.5rem;
-            border-left: 3px solid var(--accent);
-            background: #f8f9fa;
-            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 10px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
-
+        
         .event:hover {
-            border-left-width: 6px;
-            background: white;
+            background: #f8f9fa;
+            transform: translateX(5px);
         }
-
+        
         .date {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1em;
+            margin-bottom: 5px;
         }
-
-        .date::before {
-            content: '◈';
-            color: var(--primary);
-        }
-
+        
         .description {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease-out;
-            padding-left: 1.5rem;
-            border-left: 2px dotted var(--primary);
-            margin-left: 10px;
+            padding: 0 10px;
+            transition: max-height 0.3s ease-out;
+            border-left: 3px solid transparent;
+        }
+
+        .event.active {
+            background: #f8f9fa;
+            border-color: #3498db;
         }
 
         .event.active .description {
             max-height: 500px;
+            padding: 10px;
+            border-left-color: #3498db;
+            margin-top: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin: 40px 0;
+            font-size: 2.5em;
+        }
+
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-top: 0;
+            font-size: 1.8em;
         }
 
         @media (max-width: 768px) {
-            .timeline-container::before {
-                left: 20px;
+            .timeline {
+                padding: 10px;
             }
-
-            .timeline-period {
-                width: 100%;
-                margin-left: 40px !important;
+            
+            .period {
+                padding: 15px;
             }
-
-            .timeline-period::before {
-                left: -40px !important;
-                right: auto !important;
+            
+            h1 {
+                font-size: 2em;
+                margin: 20px 0;
+            }
+            
+            h2 {
+                font-size: 1.5em;
             }
         }
     </style>
 </head>
 <body>
-    <div class="timeline-container">
+    <div class="timeline">
+        <h1>Хронология истории России</h1>
+
         <!-- Древнерусское государство -->
-        <div class="timeline-period">
-            <h2 class="period-title">Древнерусское государство</h2>
+        <div class="period">
+            <h2>Древнерусское государство (862–1132)</h2>
             
             <div class="event">
                 <div class="date">862</div>
-                <div class="description">
-                    <p>Призвание варягов: князь Рюрик основал династию Рюриковичей в Новгороде, начало государственности.</p>
-                </div>
+                <div class="description">Призвание варягов: князь Рюрик основал династию Рюриковичей в Новгороде, начало государственности.</div>
             </div>
 
-            <!-- Остальные события периода -->
-             <div class="event">
+            <div class="event">
                 <div class="date">882</div>
                 <div class="description">Объединение Киева и Новгорода князем Олегом, создание Киевской Руси.</div>
             </div>
@@ -194,7 +137,7 @@
             </div>
         </div>
 
-        <!-- Остальные периоды -->
+        <!-- Феодальная раздробленность -->
         <div class="period">
             <h2>Феодальная раздробленность и монгольское иго (1132–1480)</h2>
             
@@ -370,45 +313,66 @@
             
             <div class="event">
                 <div class="date">1993</div>
-                <div class="description">Принятие новой Конституции, кризис власти.</div>
+                <div class="description">Принятие новой Конституции Российской Федерации, конституционный кризис.</div>
             </div>
 
             <div class="event">
                 <div class="date">1999</div>
-                <div class="description">Начало президентства Владимира Путина.</div>
+                <div class="description">Назначение Владимира Путина Председателем Правительства РФ.</div>
             </div>
 
             <div class="event">
                 <div class="date">2014</div>
-                <div class="description">Присоединение Крыма, санкции Запада.</div>
+                <div class="description">Вхождение Крыма в состав России, международная реакция.</div>
             </div>
 
             <div class="event">
                 <div class="date">2020</div>
-                <div class="description">Поправки к Конституции, расширение полномочий президента.</div>
+                <div class="description">Принятие поправок к Конституции РФ.</div>
             </div>
 
             <div class="event">
                 <div class="date">2022</div>
-                <div class="description">Начало специальной военной операции на Украине.</div>
+                <div class="description">Начало военной операции на территории Украины.</div>
             </div>
         </div>
     </div>
 
     <script>
         document.querySelectorAll('.event').forEach(event => {
-            event.addEventListener('click', function() {
-                this.classList.toggle('active');
+            event.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const wasActive = this.classList.contains('active');
                 
-                // Закрываем другие открытые события
-                document.querySelectorAll('.event').forEach(other => {
-                    if(other !== this) other.classList.remove('active');
+                document.querySelectorAll('.event').forEach(e => {
+                    e.classList.remove('active');
                 });
-
-                // Плавная прокрутка
-                const y = this.getBoundingClientRect().top + window.scrollY - 100;
-                window.scrollTo({top: y, behavior: 'smooth'});
+                
+                if (!wasActive) {
+                    this.classList.add('active');
+                    this.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center',
+                        inline: 'nearest'
+                    });
+                }
             });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.event')) {
+                document.querySelectorAll('.event').forEach(event => {
+                    event.classList.remove('active');
+                });
+            }
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.event').forEach(event => {
+                    event.classList.remove('active');
+                });
+            }
         });
     </script>
 </body>
