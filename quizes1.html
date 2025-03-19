@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Историческая викторина</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f0f2f5;
+        }
+
+        .quiz-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #e1e4e8;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .question:hover {
+            border-color: #2196F3;
+        }
+
+        .answers {
+            display: grid;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .answer {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .answer:hover {
+            background: #f8f9fa;
+            transform: translateX(5px);
+        }
+
+        .correct { background: #e8f5e9 !important; }
+        .wrong { background: #ffebee !important; }
+
+        #result {
+            margin-top: 30px;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+
+        h2 {
+            color: #1a237e;
+            border-bottom: 2px solid;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Историческая викторина</h1>
+        
+        <div id="questions">
+            <!-- Вопрос 1 -->
+            <div class="question">
+                <h2>1. В каком году произошло Крещение Руси?</h2>
+                <div class="answers">
+                    <div class="answer" data-correct="988">988</div>
+                    <div class="answer">862</div>
+                    <div class="answer">1054</div>
+                    <div class="answer">1147</div>
+                </div>
+            </div>
+
+            <!-- Вопрос 2 -->
+            <div class="question">
+                <h2>2. Когда состоялось Ледовое побоище?</h2>
+                <div class="answers">
+                    <div class="answer">1237</div>
+                    <div class="answer">1380</div>
+                    <div class="answer" data-correct="1242">1242</div>
+                    <div class="answer">1223</div>
+                </div>
+            </div>
+
+            <!-- Вопрос 3 -->
+            <div class="question">
+                <h2>3. Год основания Санкт-Петербурга?</h2>
+                <div class="answers">
+                    <div class="answer">1682</div>
+                    <div class="answer" data-correct="1703">1703</div>
+                    <div class="answer">1721</div>
+                    <div class="answer">1740</div>
+                </div>
+            </div>
+
+            <!-- Остальные вопросы -->
+<!-- Вопрос 4 -->
+<div class="question">
+    <h2>4. Когда началось правление Петра I?</h2>
+    <div class="answers">
+        <div class="answer">1700</div>
+        <div class="answer" data-correct="1682">1682</div>
+        <div class="answer">1698</div>
+        <div class="answer">1725</div>
+    </div>
+</div>
+
+<!-- Вопрос 5 -->
+<div class="question">
+    <h2>5. Год отмены крепостного права?</h2>
+    <div class="answers">
+        <div class="answer">1848</div>
+        <div class="answer" data-correct="1861">1861</div>
+        <div class="answer">1905</div>
+        <div class="answer">1917</div>
+    </div>
+</div>
+
+<!-- Вопрос 6 -->
+<div class="question">
+    <h2>6. Когда произошла Бородинская битва?</h2>
+    <div class="answers">
+        <div class="answer" data-correct="1812">1812</div>
+        <div class="answer">1805</div>
+        <div class="answer">1825</div>
+        <div class="answer">1799</div>
+    </div>
+</div>
+
+<!-- Вопрос 7 -->
+<div class="question">
+    <h2>7. Год первого полета человека в космос?</h2>
+    <div class="answers">
+        <div class="answer">1957</div>
+        <div class="answer" data-correct="1961">1961</div>
+        <div class="answer">1969</div>
+        <div class="answer">1975</div>
+    </div>
+</div>
+
+<!-- Вопрос 8 -->
+<div class="question">
+    <h2>8. Когда началась Великая Отечественная война?</h2>
+    <div class="answers">
+        <div class="answer">1939</div>
+        <div class="answer" data-correct="1941">1941</div>
+        <div class="answer">1945</div>
+        <div class="answer">1953</div>
+    </div>
+</div>
+
+<!-- Вопрос 9 -->
+<div class="question">
+    <h2>9. Год распада СССР?</h2>
+    <div class="answers">
+        <div class="answer">1985</div>
+        <div class="answer">1990</div>
+        <div class="answer" data-correct="1991">1991</div>
+        <div class="answer">1993</div>
+    </div>
+</div>
+
+<!-- Вопрос 10 -->
+<div class="question">
+    <h2>10. Когда произошло «Стояние на Угре»?</h2>
+    <div class="answers">
+        <div class="answer">1380</div>
+        <div class="answer" data-correct="1480">1480</div>
+        <div class="answer">1547</div>
+        <div class="answer">1240</div>
+    </div>
+</div>
+        </div>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.answer').forEach(answer => {
+            answer.addEventListener('click', function() {
+                if(this.dataset.correct) {
+                    this.classList.add('correct');
+                    this.innerHTML += ' ✓ Верно!';
+                } else {
+                    this.classList.add('wrong');
+                    this.innerHTML += ' ✗ Неверно';
+                }
+
+                // Блокируем другие ответы
+                this.parentElement.querySelectorAll('.answer').forEach(a => {
+                    a.style.pointerEvents = 'none';
+                    if(a.dataset.correct) a.classList.add('correct');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

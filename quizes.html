@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Исторические викторины</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --success: #27ae60;
+            --danger: #c0392b;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f6fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .quiz-types {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .quiz-tab {
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            background: white;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .quiz-tab.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        .quiz-section {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .quiz-section.active {
+            display: block;
+        }
+
+        .question {
+            margin: 25px 0;
+            padding: 20px;
+            border-left: 4px solid var(--accent);
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .answers-grid {
+            display: grid;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .answer {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .answer:hover {
+            transform: translateX(5px);
+        }
+
+        .correct { background: #e8f5e9 !important; border-color: var(--success) !important; }
+        .wrong { background: #ffebee !important; border-color: var(--danger) !important; }
+
+        .timer {
+            font-size: 1.2em;
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        .score-board {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 0%;
+            height: 100%;
+            background: var(--success);
+            transition: width 0.3s;
+        }
+
+        .achievements {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .achievement {
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            text-align: center;
+            opacity: 0.3;
+        }
+
+        .achievement.unlocked {
+            opacity: 1;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="quiz-header">
+            <div class="score-board">
+                <div>Очки: <span id="score">0</span></div>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+            </div>
+            <div class="timer">Время: <span id="time">300</span> сек</div>
+        </div>
+
+        <div class="quiz-types">
+            <div class="quiz-tab active" data-quiz="dates">Даты</div>
+            <div class="quiz-tab" data-quiz="persons">Личности</div>
+            <div class="quiz-tab" data-quiz="truefalse">Правда/Ложь</div>
+            <div class="quiz-tab" data-quiz="images">Артефакты</div>
+        </div>
+
+        <!-- Викторина по датам -->
+        <div class="quiz-section active" id="dates">
+            <div class="question">
+                <h3>В каком году произошло Крещение Руси?</h3>
+                <div class="answers-grid">
+                    <div class="answer" data-correct="988">988 год</div>
+                    <div class="answer">862 год</div>
+                    <div class="answer">1054 год</div>
+                    <div class="answer">1147 год</div>
+                </div>
+            </div>
+            <!-- Добавьте остальные вопросы -->
+        </div>
+
+        <!-- Викторина по личностям -->
+        <div class="quiz-section" id="persons">
+            <div class="question">
+                <h3>Кто основал династию Романовых?</h3>
+                <div class="answers-grid">
+                    <div class="answer">Пётр I</div>
+                    <div class="answer" data-correct="true">Михаил Фёдорович</div>
+                    <div class="answer">Иван Грозный</div>
+                    <div class="answer">Екатерина II</div>
+                </div>
+            </div>
+            <!-- Добавьте остальные вопросы -->
+        </div>
+
+        <!-- Викторина Правда/Ложь -->
+        <div class="quiz-section" id="truefalse">
+            <div class="question">
+                <h3>Бородинская битва произошла в 1812 году</h3>
+                <div class="answers-grid">
+                    <div class="answer" data-correct="true">Правда</div>
+                    <div class="answer">Ложь</div>
+                </div>
+            </div>
+            <!-- Добавьте остальные вопросы -->
+        </div>
+
+        <!-- Викторина с изображениями -->
+        <div class="quiz-section" id="images">
+            <div class="question">
+                <h3>Что изображено на фото?</h3>
+                <img src="placeholder.jpg" alt="Исторический артефакт" style="max-width: 300px;">
+                <div class="answers-grid">
+                    <div class="answer">Меч Александра Невского</div>
+                    <div class="answer" data-correct="true">Шлем Ярослава Мудрого</div>
+                    <div class="answer">Щит Олега Вещего</div>
+                </div>
+            </div>
+            <!-- Добавьте остальные вопросы -->
+        </div>
+
+        <div class="achievements">
+            <div class="achievement" id="ach1">Новичок (5 правильных ответов)</div>
+            <div class="achievement" id="ach2">Знаток (15 правильных ответов)</div>
+            <div class="achievement" id="ach3">Эрудит (30 правильных ответов)</div>
+        </div>
+    </div>
+
+    <script>
+        let currentScore = 0;
+        let timeLeft = 300;
+        let timerId;
+
+        // Переключение вкладок
+        document.querySelectorAll('.quiz-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.quiz-tab, .quiz-section').forEach(el => {
+                    el.classList.remove('active');
+                });
+                this.classList.add('active');
+                document.getElementById(this.dataset.quiz).classList.add('active');
+            });
+        });
+
+        // Обработка ответов
+        document.querySelectorAll('.answer').forEach(answer => {
+            answer.addEventListener('click', function() {
+                if(this.classList.contains('correct') || this.classList.contains('wrong')) return;
+                
+                const isCorrect = this.dataset.correct === 'true';
+                this.classList.add(isCorrect ? 'correct' : 'wrong');
+                
+                if(isCorrect) {
+                    currentScore += 10;
+                    document.getElementById('score').textContent = currentScore;
+                    updateProgress();
+                    checkAchievements();
+                }
+
+                // Блокировка ответов
+                this.parentElement.querySelectorAll('.answer').forEach(a => {
+                    a.style.pointerEvents = 'none';
+                });
+            });
+        });
+
+        // Таймер
+        function updateTimer() {
+            document.getElementById('time').textContent = timeLeft;
+            if(timeLeft <= 0) endQuiz();
+            else timeLeft--;
+        }
+        timerId = setInterval(updateTimer, 1000);
+
+        // Прогресс
+        function updateProgress() {
+            const progress = (currentScore / 100) * 100;
+            document.querySelector('.progress').style.width = `${progress}%`;
+        }
+
+        // Достижения
+        function checkAchievements() {
+            if(currentScore >= 50) document.getElementById('ach1').classList.add('unlocked');
+            if(currentScore >= 150) document.getElementById('ach2').classList.add('unlocked');
+            if(currentScore >= 300) document.getElementById('ach3').classList.add('unlocked');
+        }
+
+        function endQuiz() {
+            clearInterval(timerId);
+            alert(`Время вышло! Ваш результат: ${currentScore} очков`);
+        }
+    </script>
+</body>
+</html>
