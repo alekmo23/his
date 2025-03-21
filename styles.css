@@ -1,201 +1,269 @@
-/* Общие стили */
-body {
-    font-family: 'Georgia', serif;
+/* Общие стили для всех страниц */
+:root {
+    --primary: #2c3e50;
+    --accent: #3498db;
+    --success: #27ae60;
+    --danger: #c0392b;
+    --bg: #f5f6fa;
+    --text: #34495e;
+}
+
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: #f4f1e8;
-    color: #333;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg);
 }
 
 .container {
-    width: 90%;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
-h1, h2, h3 {
-    font-family: 'Palatino', serif;
-    color: #8b0000;
+/* Стили главной страницы */
+header {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-a {
-    color: #8b0000;
+nav {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+nav a {
+    color: white;
     text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background 0.3s;
 }
 
-a:hover {
-    text-decoration: underline;
+nav a:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.welcome {
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
 }
 
 .btn {
     display: inline-block;
-    padding: 10px 20px;
-    background-color: #8b0000;
-    color: #fff;
+    padding: 12px 24px;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
     border-radius: 5px;
-    text-align: center;
+    transition: transform 0.2s;
 }
 
 .btn:hover {
-    background-color: #6b0000;
+    transform: translateY(-2px);
 }
 
-/* Шапка */
-header {
-    background-color: #8b0000;
-    color: #fff;
-    padding: 20px 0;
-    text-align: center;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 2.5em;
-}
-
-header p {
-    margin: 5px 0 0;
-    font-size: 1.2em;
-}
-
-/* Навигация */
-nav {
-    background-color: #333;
-    padding: 10px 0;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-}
-
-nav ul li {
-    margin: 0 15px;
-}
-
-nav ul li a {
-    color: #fff;
-    font-size: 1.1em;
-}
-
-/* Основные секции */
-section {
-    padding: 40px 0;
-}
-
-#intro {
-    background-color: #fff;
-    text-align: center;
-}
-
-#intro h2 {
-    font-size: 2em;
-    margin-bottom: 20px;
-}
-
-#intro p {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-}
-
-#latest-posts {
-    background-color: #f4f1e8;
-}
-
-.post-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-}
-
-.post {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.post h3 {
-    margin-top: 0;
-}
-
-#subscribe {
-    background-color: #8b0000;
-    color: #fff;
-    text-align: center;
-}
-
-#subscribe h2 {
-    margin-bottom: 20px;
-}
-
-#subscribe input[type="email"] {
-    padding: 10px;
-    width: 300px;
-    border: none;
-    border-radius: 5px;
-    margin-right: 10px;
-}
-/* Дополнения к стилям */
-.timeline-section {
-    padding: 50px 0;
-    background: #f9f9f9;
-}
-
-.timeline-item {
-    margin: 20px auto;
-    max-width: 800px;
-    padding: 15px;
-    border-left: 3px solid #2c3e50;
+/* Стили хронологии */
+.timeline {
     position: relative;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 20px;
 }
 
-.timeline-date {
-    font-weight: bold;
-    color: #3498db;
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 4px;
+    height: 100%;
+    background: var(--accent);
+    transform: translateX(-50%);
+}
+
+.period {
+    position: relative;
+    margin: 40px 0;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    width: calc(50% - 40px);
+}
+
+.period:nth-child(odd) {
+    margin-left: auto;
+}
+
+.event {
+    margin: 15px 0;
+    padding: 15px;
+    border-left: 3px solid var(--accent);
     cursor: pointer;
     transition: all 0.3s;
 }
 
-.timeline-date:hover {
-    color: #2980b9;
+.event:hover {
+    transform: translateX(10px);
 }
 
-.timeline-content {
-    display: none;
-    padding: 10px;
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    margin-top: 10px;
+.date {
+    font-weight: bold;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
 }
 
-.active .timeline-content {
-    display: block;
-}
-/* Подвал */
-footer {
-    background-color: #333;
-    color: #fff;
-    padding: 20px 0;
-    text-align: center;
+.description {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+    padding-left: 1rem;
 }
 
-footer ul {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0 0;
+.event.active .description {
+    max-height: 500px;
+}
+
+/* Стили викторины */
+.quiz-header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    margin-bottom: 2rem;
 }
 
-footer ul li {
-    margin: 0 15px;
+.quiz-types {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 2rem;
 }
 
-footer ul li a {
-    color: #fff;
+.quiz-tab {
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    background: white;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.quiz-tab.active {
+    background: var(--accent);
+    color: white;
+}
+
+.question {
+    margin: 25px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent);
+}
+
+.answers-grid {
+    display: grid;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.answer {
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.answer:hover {
+    transform: translateX(5px);
+}
+.answered { opacity: 0.7; }
+.correct {
+    background: #e8f5e9 !important;
+    border-color: var(--success) !important;
+}
+
+.wrong {
+    background: #ffebee !important;
+    border-color: var(--danger) !important;
+}
+
+.timer {
+    font-size: 1.2em;
+    color: var(--danger);
+    font-weight: bold;
+}
+
+.progress-bar {
+    width: 200px;
+    height: 10px;
+    background: #eee;
+    border-radius: 5px;
+}
+
+.progress {
+    height: 100%;
+    background: var(--success);
+    transition: width 0.3s;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 10px;
+    }
+
+    nav {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .timeline::before {
+        left: 20px;
+    }
+
+    .period {
+        width: 100%;
+        margin-left: 40px !important;
+    }
+
+    .quiz-types {
+        grid-template-columns: 1fr;
+    }
+
+    .quiz-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+    }
 }
