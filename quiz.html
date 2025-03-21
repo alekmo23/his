@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Историческая викторина</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка -->
+        <div class="quiz-header">
+            <div class="score-board">
+                <div>Очки: <span id="score">0</span></div>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+            </div>
+            <div class="timer">Время: <span id="time">300</span> сек</div>
+            <button onclick="toggleSound()" class="sound-btn">
+                <img id="soundIcon" src="images/sound-on.png" alt="Звук">
+            </button>
+        </div>
+
+        <!-- Вкладки -->
+        <div class="quiz-types">
+            <div class="quiz-tab active" data-quiz="dates">Даты</div>
+            <div class="quiz-tab" data-quiz="persons">Личности</div>
+            <div class="quiz-tab" data-quiz="truefalse">Правда/Ложь</div>
+            <div class="quiz-tab" data-quiz="images">Артефакты</div>
+        </div>
+
+        <!-- Секции вопросов -->
+        <div class="quiz-section active" id="dates"></div>
+        <div class="quiz-section" id="persons"></div>
+        <div class="quiz-section" id="truefalse"></div>
+        <div class="quiz-section" id="images"></div>
+
+        <!-- Достижения -->
+        <div class="achievements">
+            <div class="achievement" id="ach1">Новичок (5 правильных)</div>
+            <div class="achievement" id="ach2">Знаток (15 правильных)</div>
+            <div class="achievement" id="ach3">Эрудит (30 правильных)</div>
+        </div>
+    </div>
+
+    <!-- Финальный экран -->
+    <div class="final-screen" id="finalScreen">
+        <h2>Викторина завершена!</h2>
+        <p>Правильных ответов: <span id="finalCorrect">0</span></p>
+        <p>Неправильных ответов: <span id="finalWrong">0</span></p>
+        <p>Заработано очков: <span id="finalScore">0</span></p>
+        <button class="restart-btn" onclick="restartQuiz()">Начать заново</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
