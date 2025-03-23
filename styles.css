@@ -1,177 +1,119 @@
-/* styles.css - Полная версия с улучшениями для персоналий */
-
-/* Базовые настройки */
-:root {
-    --primary: #2c3e50;
-    --accent: #3498db;
-    --success: #27ae60;
-    --danger: #c0392b;
-    --bg: #f5f6fa;
-    --text: #34495e;
-}
-
-html {
-    font-size: calc(14px + 0.3vw); /* Адаптивный размер шрифта */
-}
-
-/* Общие стили для страниц персоналий */
-.era {
-    margin: 2rem 0;
-    padding: 1.5rem;
-    border-left: 4px solid;
-    background: #fff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-
-.person-card {
-    display: flex;
-    align-items: center;
-    padding: 1.25rem;
-    margin: 1rem 0;
-    background: #f8f9fa;
-    border-radius: 12px;
-    transition: transform 0.2s;
-}
-
-.person-image {
-    width: 5rem;
-    height: 5rem;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--accent);
-    margin-right: 1.5rem;
-}
-
-/* Адаптация для мобильных */
-@media (max-width: 768px) {
-    .person-card {
-        flex-direction: column;
-        text-align: center;
-        padding: 1rem;
-    }
-
-    .person-image {
-        width: 4.5rem;
-        height: 4.5rem;
-        margin: 0 0 1rem 0;
-    }
-
-    .filter-buttons {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.5rem;
-    }
-
-    .filter-btn {
-        padding: 0.8rem;
-        font-size: 0.9rem;
-        width: 100%;
-    }
-}
-
+/* Дополнения для страниц с персонами */
 @media (max-width: 480px) {
-    html {
-        font-size: 15px; /* Фиксированный размер для мелких экранов */
-    }
-
+    /* Общие стили */
     .era {
-        margin: 1rem 0;
-        padding: 1rem;
-        border-width: 3px;
+        margin: 20px 0;
+        padding: 15px;
     }
 
-    .person-card {
-        border-radius: 8px;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    }
-
-    .person-image {
-        width: 4rem;
-        height: 4rem;
-    }
-
+    /* Заголовки */
     h2 {
-        font-size: 1.25rem !important;
-        margin-bottom: 1rem;
+        font-size: 1.3em;
+        margin-bottom: 15px;
     }
 
     h3 {
-        font-size: 1.1rem;
-        line-height: 1.3;
+        font-size: 1.1em;
+        margin: 15px 0 10px;
     }
 
-    .dates {
-        font-size: 0.85rem;
-        margin-top: 0.25rem;
+    /* Карточки персон */
+    .person-card {
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.08);
     }
 
+    .person-image {
+        width: 60px;
+        height: 60px;
+        margin-right: 15px;
+    }
+
+    /* Текст в карточках */
+    .person-card p {
+        font-size: 0.9em;
+        line-height: 1.4;
+    }
+
+    .person-card a {
+        font-size: 0.85em;
+        display: inline-block;
+        margin-top: 8px;
+    }
+
+    /* Фильтры */
+    .filter-buttons {
+        margin: 15px 0;
+    }
+
+    .filter-btn {
+        padding: 12px 15px;
+        margin: 4px;
+        font-size: 0.9em;
+        border-radius: 25px;
+    }
+
+    /* Временная шкала */
+    .timeline {
+        height: 60px;
+        margin: 20px 0;
+    }
+
+    .timeline-item {
+        font-size: 0.8em;
+    }
+
+    /* Модальное окно */
     .modal-content {
-        width: 95% !important;
-        margin: 1rem auto !important;
-        padding: 1rem;
+        padding: 15px;
+        width: 90%;
+        margin: 15% auto;
+    }
+
+    #modalTitle {
+        font-size: 1.2em;
+    }
+
+    #modalBio {
+        font-size: 0.9em;
+        line-height: 1.4;
     }
 }
 
-/* Оптимизация изображений */
-img[loading="lazy"] {
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-img[loading="lazy"].loaded {
-    opacity: 1;
-}
-
-/* Анимации */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.person-card {
-    animation: fadeIn 0.4s ease-out;
-}
-
-/* Улучшенные интерактивные элементы */
-.filter-btn, .bio-btn {
-    min-width: 44px;
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.8rem 1.5rem;
-    border-radius: 2rem;
-    font-weight: 500;
-    transition: all 0.2s;
-}
-
-.bio-btn {
-    background: var(--accent);
-    color: white !important;
-    margin-top: 0.75rem;
-}
-
-/* Кастомный скролл */
-@media (hover: hover) {
-    ::-webkit-scrollbar {
-        width: 8px;
-        background: #f1f1f1;
+@media (max-width: 360px) {
+    .person-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
 
-    ::-webkit-scrollbar-thumb {
-        background: var(--accent);
-        border-radius: 4px;
+    .person-image {
+        margin: 0 0 10px 0;
+    }
+
+    .filter-btn {
+        width: 100%;
+        margin: 4px 0;
     }
 }
 
-/* Оптимизация типографики */
+/* Улучшение читаемости */
 .category {
     font-size: 1.1em;
     color: var(--primary);
-    letter-spacing: -0.02em;
 }
 
-p {
-    line-height: 1.6;
-    hyphens: auto;
+.dates {
+    font-size: 0.85em;
+    display: block;
+    margin-top: 3px;
+}
+
+/* Оптимизация изображений */
+.person-image {
+    object-fit: cover;
+    border: 2px solid var(--accent);
 }
