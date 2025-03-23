@@ -1,5 +1,6 @@
-/* styles.css - Полная версия с адаптацией */
+/* styles.css - Полная версия с улучшениями для персоналий */
 
+/* Базовые настройки */
 :root {
     --primary: #2c3e50;
     --accent: #3498db;
@@ -9,504 +10,168 @@
     --text: #34495e;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+html {
+    font-size: calc(14px + 0.3vw); /* Адаптивный размер шрифта */
 }
 
-body {
-    font-family: 'Segoe UI', system-ui, -apple-system;
-    line-height: 1.6;
-    color: var(--text);
-    background: var(--bg);
+/* Общие стили для страниц персоналий */
+.era {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    border-left: 4px solid;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* Шапка */
-header {
-    background: var(--primary);
-    color: white;
-    padding: 1rem 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-nav {
+.person-card {
     display: flex;
-    gap: 2rem;
-    margin-top: 1rem;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    transition: background 0.3s;
-}
-
-nav a:hover {
-    background: rgba(255,255,255,0.1);
-}
-
-/* Главная страница */
-.welcome {
-    text-align: center;
-    padding: 4rem 0;
-}
-
-.cta-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 2rem;
-}
-
-.btn {
-    display: inline-block;
-    padding: 12px 24px;
-    background: var(--accent);
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: transform 0.2s;
-    min-width: 44px;
-    min-height: 44px;
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-}
-
-/* Хронология */
-.timeline {
-    position: relative;
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 20px;
-}
-
-.timeline::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    width: 4px;
-    height: 100%;
-    background: var(--accent);
-    transform: translateX(-50%);
-}
-
-.period {
-    position: relative;
-    margin: 40px 0;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-    width: calc(50% - 40px);
-}
-
-.period:nth-child(odd) {
-    margin-left: auto;
-}
-
-.event {
-    margin: 15px 0;
-    padding: 15px;
-    border-left: 3px solid var(--accent);
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.event:hover {
-    transform: translateX(10px);
-}
-
-.date {
-    font-weight: bold;
-    color: var(--accent);
-    margin-bottom: 0.5rem;
-}
-
-.description {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease-out;
-    padding-left: 1rem;
-}
-
-.event.active .description {
-    max-height: 500px;
-}
-
-/* Викторина */
-.quiz-header {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    margin-bottom: 2rem;
-}
-
-.quiz-types {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin-bottom: 2rem;
-}
-
-.quiz-tab {
-    padding: 15px;
-    text-align: center;
-    cursor: pointer;
-    background: white;
-    border-radius: 8px;
-    transition: all 0.3s;
-    min-width: 44px;
-    min-height: 44px;
-}
-
-.quiz-tab.active {
-    background: var(--accent);
-    color: white;
-}
-
-.question {
-    margin: 25px 0;
-    padding: 20px;
+    padding: 1.25rem;
+    margin: 1rem 0;
     background: #f8f9fa;
-    border-radius: 8px;
-    border-left: 4px solid var(--accent);
+    border-radius: 12px;
+    transition: transform 0.2s;
 }
 
-.question img {
-    max-width: 100%;
-    height: auto;
+.person-image {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent);
+    margin-right: 1.5rem;
 }
 
-.answers-grid {
-    display: grid;
-    gap: 12px;
-    margin-top: 15px;
-}
-
-.answer {
-    padding: 12px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.answer:hover {
-    transform: translateX(5px);
-}
-
-.answered { opacity: 0.7; }
-.correct {
-    background: #e8f5e9 !important;
-    border-color: var(--success) !important;
-}
-
-.wrong {
-    background: #ffebee !important;
-    border-color: var(--danger) !important;
-}
-
-.timer {
-    font-size: 1.2em;
-    color: var(--danger);
-    font-weight: bold;
-}
-
-.progress-bar {
-    width: 200px;
-    height: 10px;
-    background: #eee;
-    border-radius: 5px;
-}
-
-.progress {
-    height: 100%;
-    background: var(--success);
-    transition: width 0.3s;
-}
-
-/* Адаптивность */
+/* Адаптация для мобильных */
 @media (max-width: 768px) {
-    .container {
-        padding: 0 10px;
-    }
-
-    nav {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .timeline::before {
-        left: 20px;
-    }
-
-    .period {
-        width: 100%;
-        margin-left: 40px !important;
-    }
-
-    .quiz-types {
-        grid-template-columns: 1fr;
-    }
-
-    .quiz-header {
-        flex-direction: column;
-        gap: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    /* Общие стили */
-    .container {
-        padding: 0 10px;
-    }
-
-    h1 {
-        font-size: 1.8em;
-    }
-
-    h2 {
-        font-size: 1.4em;
-    }
-
-    /* Навигация */
-    nav {
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-
-    nav a {
-        font-size: 0.9em;
-        padding: 4px 8px;
-    }
-
-    /* Хронология */
-    .timeline::before {
-        left: 15px;
-    }
-
-    .period {
-        padding: 15px;
-        margin: 20px 0;
-        padding-left: 50px;
-    }
-
-    .event {
-        margin: 10px 0;
-        padding: 10px;
-    }
-
-    .date {
-        font-size: 0.9em;
-    }
-
-    /* Викторина */
-    .quiz-header {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-
-    .quiz-types {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .quiz-tab {
-        padding: 10px;
-        font-size: 0.9em;
-    }
-
-    .question {
-        padding: 15px;
-        margin: 15px 0;
-    }
-
-    .answer {
-        padding: 10px;
-        font-size: 0.9em;
-    }
-
-    /* Карточки личностей */
     .person-card {
         flex-direction: column;
-        align-items: flex-start;
-        padding: 10px;
+        text-align: center;
+        padding: 1rem;
     }
 
     .person-image {
-        width: 70px;
-        height: 70px;
-        margin-bottom: 10px;
+        width: 4.5rem;
+        height: 4.5rem;
+        margin: 0 0 1rem 0;
     }
 
-    /* Модальное окно */
-    .modal-content {
-        width: 95%;
-        margin: 10% auto;
-        padding: 10px;
+    .filter-buttons {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
     }
 
-    /* Таймер и прогресс */
-    .timer {
-        font-size: 1em;
-    }
-
-    .progress-bar {
-        width: 150px;
-    }
-}
-
-@media (max-width: 360px) {
-    .quiz-types {
-        grid-template-columns: 1fr;
-    }
-    
-    nav a {
+    .filter-btn {
+        padding: 0.8rem;
+        font-size: 0.9rem;
         width: 100%;
-        text-align: center;
-    }
-    
-    .cta-buttons .btn {
-        font-size: 0.8em;
-        padding: 8px 12px;
     }
 }
 
-/* Дополнительные улучшения */
-.answer, .quiz-tab, .btn {
-    min-width: 44px;
-    min-height: 44px;
-}
-/* Дополнения для страниц с персонами */
 @media (max-width: 480px) {
-    /* Общие стили */
-    .era {
-        margin: 20px 0;
-        padding: 15px;
+    html {
+        font-size: 15px; /* Фиксированный размер для мелких экранов */
     }
 
-    /* Заголовки */
+    .era {
+        margin: 1rem 0;
+        padding: 1rem;
+        border-width: 3px;
+    }
+
+    .person-card {
+        border-radius: 8px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    .person-image {
+        width: 4rem;
+        height: 4rem;
+    }
+
     h2 {
-        font-size: 1.3em;
-        margin-bottom: 15px;
+        font-size: 1.25rem !important;
+        margin-bottom: 1rem;
     }
 
     h3 {
-        font-size: 1.1em;
-        margin: 15px 0 10px;
+        font-size: 1.1rem;
+        line-height: 1.3;
     }
 
-    /* Карточки персон */
-    .person-card {
-        padding: 12px;
-        margin: 10px 0;
-        border-radius: 8px;
-        background: #fff;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    .dates {
+        font-size: 0.85rem;
+        margin-top: 0.25rem;
     }
 
-    .person-image {
-        width: 60px;
-        height: 60px;
-        margin-right: 15px;
-    }
-
-    /* Текст в карточках */
-    .person-card p {
-        font-size: 0.9em;
-        line-height: 1.4;
-    }
-
-    .person-card a {
-        font-size: 0.85em;
-        display: inline-block;
-        margin-top: 8px;
-    }
-
-    /* Фильтры */
-    .filter-buttons {
-        margin: 15px 0;
-    }
-
-    .filter-btn {
-        padding: 12px 15px;
-        margin: 4px;
-        font-size: 0.9em;
-        border-radius: 25px;
-    }
-
-    /* Временная шкала */
-    .timeline {
-        height: 60px;
-        margin: 20px 0;
-    }
-
-    .timeline-item {
-        font-size: 0.8em;
-    }
-
-    /* Модальное окно */
     .modal-content {
-        padding: 15px;
-        width: 90%;
-        margin: 15% auto;
+        width: 95% !important;
+        margin: 1rem auto !important;
+        padding: 1rem;
     }
-
-    #modalTitle {
-        font-size: 1.2em;
-    }
-
-    #modalBio {
-        font-size: 0.9em;
-        line-height: 1.4;
-    }
-}
-
-@media (max-width: 360px) {
-    .person-card {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .person-image {
-        margin: 0 0 10px 0;
-    }
-
-    .filter-btn {
-        width: 100%;
-        margin: 4px 0;
-    }
-}
-
-/* Улучшение читаемости */
-.category {
-    font-size: 1.1em;
-    color: var(--primary);
-}
-
-.dates {
-    font-size: 0.85em;
-    display: block;
-    margin-top: 3px;
 }
 
 /* Оптимизация изображений */
-.person-image {
-    object-fit: cover;
-    border: 2px solid var(--accent);
+img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+img[loading="lazy"].loaded {
+    opacity: 1;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.person-card {
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* Улучшенные интерактивные элементы */
+.filter-btn, .bio-btn {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 1.5rem;
+    border-radius: 2rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.bio-btn {
+    background: var(--accent);
+    color: white !important;
+    margin-top: 0.75rem;
+}
+
+/* Кастомный скролл */
+@media (hover: hover) {
+    ::-webkit-scrollbar {
+        width: 8px;
+        background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--accent);
+        border-radius: 4px;
+    }
+}
+
+/* Оптимизация типографики */
+.category {
+    font-size: 1.1em;
+    color: var(--primary);
+    letter-spacing: -0.02em;
+}
+
+p {
+    line-height: 1.6;
+    hyphens: auto;
 }
