@@ -1,4 +1,5 @@
-/* Общие стили для всех страниц */
+/* styles.css - Полная версия с адаптацией */
+
 :root {
     --primary: #2c3e50;
     --accent: #3498db;
@@ -27,7 +28,7 @@ body {
     padding: 0 20px;
 }
 
-/* Стили главной страницы */
+/* Шапка */
 header {
     background: var(--primary);
     color: white;
@@ -53,6 +54,7 @@ nav a:hover {
     background: rgba(255,255,255,0.1);
 }
 
+/* Главная страница */
 .welcome {
     text-align: center;
     padding: 4rem 0;
@@ -73,13 +75,15 @@ nav a:hover {
     text-decoration: none;
     border-radius: 5px;
     transition: transform 0.2s;
+    min-width: 44px;
+    min-height: 44px;
 }
 
 .btn:hover {
     transform: translateY(-2px);
 }
 
-/* Стили хронологии */
+/* Хронология */
 .timeline {
     position: relative;
     max-width: 800px;
@@ -140,7 +144,7 @@ nav a:hover {
     max-height: 500px;
 }
 
-/* Стили викторины */
+/* Викторина */
 .quiz-header {
     display: flex;
     justify-content: space-between;
@@ -165,6 +169,8 @@ nav a:hover {
     background: white;
     border-radius: 8px;
     transition: all 0.3s;
+    min-width: 44px;
+    min-height: 44px;
 }
 
 .quiz-tab.active {
@@ -178,6 +184,11 @@ nav a:hover {
     background: #f8f9fa;
     border-radius: 8px;
     border-left: 4px solid var(--accent);
+}
+
+.question img {
+    max-width: 100%;
+    height: auto;
 }
 
 .answers-grid {
@@ -197,6 +208,7 @@ nav a:hover {
 .answer:hover {
     transform: translateX(5px);
 }
+
 .answered { opacity: 0.7; }
 .correct {
     background: #e8f5e9 !important;
@@ -258,12 +270,124 @@ nav a:hover {
 }
 
 @media (max-width: 480px) {
-    .btn {
-        width: 100%;
+    /* Общие стили */
+    .container {
+        padding: 0 10px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    h2 {
+        font-size: 1.4em;
+    }
+
+    /* Навигация */
+    nav {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    nav a {
+        font-size: 0.9em;
+        padding: 4px 8px;
+    }
+
+    /* Хронология */
+    .timeline::before {
+        left: 15px;
+    }
+
+    .period {
+        padding: 15px;
+        margin: 20px 0;
+        padding-left: 50px;
+    }
+
+    .event {
+        margin: 10px 0;
+        padding: 10px;
+    }
+
+    .date {
+        font-size: 0.9em;
+    }
+
+    /* Викторина */
+    .quiz-header {
+        flex-direction: column;
+        gap: 15px;
         text-align: center;
     }
 
-    .cta-buttons {
-        flex-direction: column;
+    .quiz-types {
+        grid-template-columns: repeat(2, 1fr);
     }
+
+    .quiz-tab {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+
+    .question {
+        padding: 15px;
+        margin: 15px 0;
+    }
+
+    .answer {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+
+    /* Карточки личностей */
+    .person-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .person-image {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 10px;
+    }
+
+    /* Модальное окно */
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+        padding: 10px;
+    }
+
+    /* Таймер и прогресс */
+    .timer {
+        font-size: 1em;
+    }
+
+    .progress-bar {
+        width: 150px;
+    }
+}
+
+@media (max-width: 360px) {
+    .quiz-types {
+        grid-template-columns: 1fr;
+    }
+    
+    nav a {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .cta-buttons .btn {
+        font-size: 0.8em;
+        padding: 8px 12px;
+    }
+}
+
+/* Дополнительные улучшения */
+.answer, .quiz-tab, .btn {
+    min-width: 44px;
+    min-height: 44px;
 }
